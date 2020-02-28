@@ -105,15 +105,15 @@
   {\chaptertitlename\ \thechapter.}{4pt}{}
 \titlespacing*{\chapter}{0pt}{0pt}{12pt}
 \titleformat{\section}
-  {\large\centering}
+  {\large\bfseries\centering}
   {\thesection.}{4pt}{}
 \titlespacing*{\section}{0pt}{12pt}{6pt}
 \titleformat{\subsection}
-  {\centering}
+  {\bfseries\centering}
   {\thesubsection.}{3pt}{}
 \titlespacing*{\subsection}{0pt}{8pt}{4pt}
 \titleformat{\subsubsection}
-  {\centering}
+  {\bfseries\centering}
   {\thesubsubsection.}{3pt}{}
 \titlespacing*{\subsubsection}{0pt}{8pt}{4pt}
 
