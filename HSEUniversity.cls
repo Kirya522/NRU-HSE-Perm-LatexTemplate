@@ -1,6 +1,5 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{HSEUniversity}[2019-06-15 Template for dessirtations and other artefacts]
-%\LoadClass[a4paper]{extreport}
 \LoadClass[fontsize=14bp]{scrreprt}
 \RequirePackage{ifpdf}
 \RequirePackage{kvoptions}
@@ -13,11 +12,12 @@
 \RequirePackage[russian]{babel}	% Языки: русский, английский
 
 
-\RequirePackage[font=small,skip=4pt]{caption}
+\RequirePackage[font=small,skip=4pt, labelfont={it, bf}, textfont={it, bf}]{caption}
 \RequirePackage{graphicx}
+%\usepackage{mathptmx}
 
 %\usepackage{pscyr}						% Красивые русские шрифты
-%\renewcommand{\rmdefault}{ftm} % Включаем Times New Roman
+% \renewcommand{\rmdefault}{ftm} % Включаем Times New Roman
 
 %%% Оформление абзацев %%%
 \RequirePackage{indentfirst} % Красная строка
@@ -33,10 +33,11 @@
 \RequirePackage{amsfonts}
 \RequirePackage{amssymb}
 
-
 \RequirePackage[linktocpage=true,plainpages=false,pdfpagelabels=false]{hyperref}
 
-
+% установка таймсньюромана
+\RequirePackage{fontspec}
+\setmainfont{TimesNewRoman}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%% Библиография %%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -45,6 +46,7 @@
 	language=russian,
 	babel=other,
 	backend=biber,
+	bibencoding=utf-8,
 	defernumbers=true,% Нумерация начинается как только встречается группа.
 	sorting=none,
 	url=false,
@@ -53,6 +55,11 @@
 	movenames=false,
 	maxnames=100
 ]{biblatex}
+
+\RequirePackage{appendix}
+\RequirePackage{nameref}
+\newcommand*{\currentname}{\@currentlabelname}
+
 \renewcommand*{\multicitedelim}{\addcomma\space}
 
 %\usepackage{cite} % Красивые ссылки на литературу
@@ -96,8 +103,8 @@
 \linespread{1.25} % Полуторный интервал
 \setlength{\parindent}{12.5mm} % Отступ красной строки
 
-\captionsetup[table]{position=t,singlelinecheck=false, justification=RaggedLeft,labelsep=period}
-\captionsetup[figure]{labelfont={bf},textfont={bf},position=b,singlelinecheck=false,labelsep=period,justification=centering}
+\captionsetup[table]{position=t, singlelinecheck=false, justification=RaggedLeft,labelsep=period, name=Таблица}
+\captionsetup[figure]{position=b,singlelinecheck=false,justification=centering, labelsep=period, name=Рисунок}
 
 %%% Главы и разделы %%%
 \titleformat{\chapter}%[display]
@@ -105,7 +112,7 @@
   {\chaptertitlename\ \thechapter.}{4pt}{}
 \titlespacing*{\chapter}{0pt}{0pt}{12pt}
 \titleformat{\section}
-  {\large\bfseries\centering}
+  {\bfseries\large\centering}
   {\thesection.}{4pt}{}
 \titlespacing*{\section}{0pt}{12pt}{6pt}
 \titleformat{\subsection}
@@ -291,22 +298,20 @@
 }
 
 \newsavebox{\TABLEbox}
-\newenvironment{TABLE}[2][t]
-{
+
+\newenvironment{TABLE}[2][t]{
   \def\@tableCaption{#2}
   \begin{table}[#1]
   \begin{lrbox}{\TABLEbox}
   \small
 }{
   \end{lrbox}
-
   \centering
   \captionbox[l]{\@tableCaption}{
     \usebox{\TABLEbox}
   }
   \end{table}
 }
-
 
 \newsavebox{\FIGUREbox}
 \newenvironment{FIGURE}[2][t]
@@ -323,3 +328,9 @@
   \caption{\@figureCaption}
   \end{figure}
 }
+
+\newcommand{\appendixsection}[1]{\section{#1}\addcontentsline{toc}{chapter}{Приложение \thesection. \currentname}}
+\newcommand{\reftable}[1]{см.~таб.~\ref{#1}}
+\newcommand{\reffig}[1]{см.~рис.~\ref{#1}}
+
+
